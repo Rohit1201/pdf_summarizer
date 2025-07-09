@@ -1,1 +1,1 @@
-web: uvicorn rohit.api:app --host=0.0.0.0 --port=10000
+web: uvicorn pdf_summarizer.api:app --host=0.0.0.0 --port=10000

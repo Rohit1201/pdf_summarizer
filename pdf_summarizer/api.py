@@ -1,5 +1,5 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from summarizer import read_pdf, summarize_text
+from pdf_summarizer.summarizer import read_pdf, summarize_text
 import uvicorn
 
 app = FastAPI(title="PDF Summarizer API")
