@@ -1,5 +1,6 @@
 import os
 from PyPDF2 import PdfReader
+from io import BytesIO
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import SystemMessage, HumanMessage
 from dotenv import load_dotenv
@@ -7,14 +8,21 @@ from dotenv import load_dotenv
 load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
-def read_pdf(file, max_chars=3000):
-    pdf_reader = PdfReader(file)
+# def read_pdf(file, max_chars=3000):
+#     pdf_reader = PdfReader(file)
+#     text = ""
+#     for page in pdf_reader.pages:
+#         page_text = page.extract_text()
+#         if page_text:
+#             text += page_text
+#     return text[:max_chars]
+
+def read_pdf(file_bytes: bytes) -> str:
+    pdf_reader = PdfReader(BytesIO(file_bytes))  # ✅ Wrap bytes in BytesIO
     text = ""
     for page in pdf_reader.pages:
-        page_text = page.extract_text()
-        if page_text:
-            text += page_text
-    return text[:max_chars]
+        text += page.extract_text() or ""
+    return text
 
 def summarize_text(text, model="gpt-4o"):
     llm = ChatOpenAI(
