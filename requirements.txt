@@ -1,7 +1,7 @@
 streamlit
 fastapi
 uvicorn
-langchain
+langchain[community]
 openai
 PyPDF2
 python-dotenv
